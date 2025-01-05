@@ -12,7 +12,7 @@ import com.shverma.booknexus.book.presentation.book_list.BookListScreen
 import com.shverma.booknexus.book.presentation.book_list.BookListState
 import com.shverma.booknexus.book.presentation.book_list.BookSearchBar
 
-@Preview
+@Preview(apiLevel = 30)
 @Composable
 private fun BookSearchBarPreview() {
     Box(
