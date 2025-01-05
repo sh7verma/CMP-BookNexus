@@ -1,4 +1,4 @@
-package com.shverma.booknexus.book.app
+package com.shverma.booknexus.app
 
 import kotlinx.serialization.Serializable
 

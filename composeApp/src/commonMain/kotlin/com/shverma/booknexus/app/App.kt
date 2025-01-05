@@ -1,4 +1,4 @@
-package com.shverma.booknexus.book.app
+package com.shverma.booknexus.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -15,7 +15,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Preview
 fun App() {
     BookListScreenRoot(
-        viewModel = remember { BookListViewModel() },
+        viewModel = koinViewModel<BookListViewModel>(),
         onBookClick = { book ->
         }
     )
