@@ -4,6 +4,8 @@ import com.shverma.booknexus.book.data.network.KtorRemoteBookDataSource
 import com.shverma.booknexus.book.data.network.RemoteBookDataSource
 import com.shverma.booknexus.book.data.repository.DefaultBookRepository
 import com.shverma.booknexus.book.domain.BookRepository
+import com.shverma.booknexus.book.presentation.SelectedBookViewModel
+import com.shverma.booknexus.book.presentation.book_detail.BookDetailViewModel
 import com.shverma.booknexus.book.presentation.book_list.BookListViewModel
 import com.shverma.booknexus.core.data.HttpClientFactory
 import org.koin.core.context.startKoin
@@ -29,4 +31,6 @@ val sharedModule = module {
     singleOf(::DefaultBookRepository).bind<BookRepository>()
 
     viewModelOf(::BookListViewModel)
+    viewModelOf(::SelectedBookViewModel)
+    viewModelOf(::BookDetailViewModel)
 }

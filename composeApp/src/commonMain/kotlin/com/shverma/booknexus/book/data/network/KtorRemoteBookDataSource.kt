@@ -1,5 +1,6 @@
 package com.shverma.booknexus.book.data.network
 
+import com.shverma.booknexus.book.data.dto.BookWorkDto
 import com.shverma.booknexus.book.data.dto.SearchResponseDto
 import com.shverma.booknexus.core.data.safeCall
 import com.shverma.booknexus.core.domain.DataError
@@ -29,6 +30,14 @@ class KtorRemoteBookDataSource(
                     "key,title,author_name,author_key,cover_edition_key,cover_i,ratings_average,ratings_count,first_publish_year,language,number_of_pages_median,edition_count"
                 )
             }
+        }
+    }
+
+    override suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, DataError.Remote> {
+        return safeCall<BookWorkDto> {
+            httpClient.get(
+                urlString = "$BASE_URL/works/$bookWorkId.json"
+            )
         }
     }
 }
