@@ -1,7 +1,11 @@
 package com.shverma.booknexus.book.data.repository
 
 
+import androidx.sqlite.SQLiteException
+import com.shverma.booknexus.book.data.database.FavoriteBookDao
+import com.shverma.booknexus.book.data.database.FavoriteBookDatabase
 import com.shverma.booknexus.book.data.mappers.toBook
+import com.shverma.booknexus.book.data.mappers.toBookEntity
 import com.shverma.booknexus.book.data.network.RemoteBookDataSource
 import com.shverma.booknexus.book.domain.Book
 import com.shverma.booknexus.book.domain.BookRepository
@@ -10,9 +14,11 @@ import com.shverma.booknexus.core.domain.EmptyResult
 import com.shverma.booknexus.core.domain.Result
 import com.shverma.booknexus.core.domain.map
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class DefaultBookRepository(
     private val remoteBookDataSource: RemoteBookDataSource,
+    private val favoriteBookDao: FavoriteBookDao
 ) : BookRepository {
     override suspend fun searchBooks(query: String): Result<List<Book>, DataError.Remote> {
         return remoteBookDataSource
@@ -27,7 +33,7 @@ class DefaultBookRepository(
             .getBookDetails(bookId)
             .map { it.description }
     }
-/*
+
     override fun getFavoriteBooks(): Flow<List<Book>> {
         return favoriteBookDao
             .getFavoriteBooks()
@@ -55,5 +61,5 @@ class DefaultBookRepository(
 
     override suspend fun deleteFromFavorites(id: String) {
         favoriteBookDao.deleteFavoriteBook(id)
-    }*/
+    }
 }

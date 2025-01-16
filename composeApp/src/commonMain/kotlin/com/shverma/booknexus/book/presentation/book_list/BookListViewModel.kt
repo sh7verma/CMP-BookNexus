@@ -2,7 +2,6 @@ package com.shverma.booknexus.book.presentation.book_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shverma.booknexus.book.data.network.RemoteBookDataSource
 import com.shverma.booknexus.book.domain.Book
 import com.shverma.booknexus.book.domain.BookRepository
 import com.shverma.booknexus.core.domain.onError
@@ -51,6 +50,7 @@ class BookListViewModel(
             if (cachedBooks.isEmpty()) {
                 observeSearchQuery()
             }
+            observeFavoriteBooks()
         }
         .stateIn(
             viewModelScope,
@@ -99,6 +99,22 @@ class BookListViewModel(
                         searchJob?.cancel()
                         searchJob = searchBooks(query)
                     }
+                }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private var observeFavoriteJob: Job? = null
+
+    private fun observeFavoriteBooks() {
+        observeFavoriteJob?.cancel()
+        observeFavoriteJob = bookRepository
+            .getFavoriteBooks()
+            .onEach { favoriteBooks ->
+                _state.update {
+                    it.copy(
+                        favoriteBooks = favoriteBooks
+                    )
                 }
             }
             .launchIn(viewModelScope)

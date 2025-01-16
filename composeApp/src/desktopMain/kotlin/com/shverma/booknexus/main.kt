@@ -11,7 +11,7 @@ fun main() {
     application {
         Window(
             onCloseRequest = ::exitApplication,
-            title = "CMP-Bookpedia",
+            title = "CMP-Booknexus",
         ) {
             App()
         }
